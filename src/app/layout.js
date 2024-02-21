@@ -1,5 +1,8 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
+import Header from "@/components/header";
+import { CookiesProvider } from 'next-client-cookies/server';
+import { Toaster } from 'react-hot-toast'
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -11,7 +14,19 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <CookiesProvider>
+          <Toaster
+            position="bottom-right"
+            reverseOrder={false}
+          />
+          <Header />
+
+          <div className="p-4">
+            {children}
+          </div>
+        </CookiesProvider>
+      </body>
     </html>
   );
 }
